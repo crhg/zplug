@@ -169,6 +169,7 @@ __zplug::core::core::variable()
     typeset -gx    ZPLUG_LOADFILE=${ZPLUG_LOADFILE:-$ZPLUG_HOME/packages.zsh}
     typeset -gx    ZPLUG_USE_CACHE=${ZPLUG_USE_CACHE:-true}
     typeset -gx    ZPLUG_SUDO_PASSWORD
+    typeset -gx    ZPLUG_PACKAGE=${ZPLUG_PACKAGE:-"zplug/zplug"}
 
     typeset -gx    ZPLUG_ERROR_LOG=${ZPLUG_ERROR_LOG:-$ZPLUG_HOME/.error_log}
 
@@ -177,7 +178,7 @@ __zplug::core::core::variable()
     typeset -gx    ZPLUG_REPOS=${ZPLUG_REPOS:-$ZPLUG_HOME/repos}
 
     typeset -gx    _ZPLUG_VERSION="2.4.1"
-    typeset -gx    _ZPLUG_URL="https://github.com/zplug/zplug"
+    typeset -gx    _ZPLUG_URL="https://github.com/${ZPLUG_PACKAGE}"
     typeset -gx    _ZPLUG_OHMYZSH="robbyrussell/oh-my-zsh"
     typeset -gx    _ZPLUG_PREZTO="sorin-ionescu/prezto"
     typeset -gx    _ZPLUG_AWKPATH="$ZPLUG_ROOT/misc/contrib"
