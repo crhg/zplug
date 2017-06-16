@@ -42,13 +42,15 @@ __zplug::core::sources::call()
     local val="$1"
 
     if __zplug::core::sources::is_exists "$val"; then
+        local capture_error=$ZPLUG_HOME/log/capture_error.$$
         {
             # Directory '/base/sources' needs to be included in FPATH
             autoload -Uz "$val.zsh"
             eval "$val.zsh"
             unfunction "$val.zsh"
         } \
-            2> >(__zplug::log::capture::error) >/dev/null
+            2> $capture_error >/dev/null
+        __zplug::log::capture::error_log $capture_error
 
     fi
 }
