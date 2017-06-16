@@ -106,11 +106,14 @@ __zplug::core::core::prepare()
     "$fpath[@]"
     )
 
+    # Release zplug variables and export
+    __zplug::core::core::variable || return 1
+
     # Check whether you meet the requirements for using zplug
     # 1. zsh 4.3.9 or more
     # 2. git
     # 3. nawk or gawk
-    {
+    if [[ ! -f $ZPLUG_CACHE_DIR/env_checked ]]; then
         if ! __zplug::base::base::zsh_version 4.3.9; then
             __zplug::io::print::f \
                 --die \
@@ -139,10 +142,9 @@ __zplug::core::core::prepare()
                 'No available AWK variant in your $PATH\n'
             return 1
         fi
-    }
 
-    # Release zplug variables and export
-    __zplug::core::core::variable || return 1
+        : >> $ZPLUG_CACHE_DIR/env_checked
+    fi
 
     for i in "$ZPLUG_HOME"/{,log} "$ZPLUG_BIN" "$ZPLUG_CACHE_DIR" "$ZPLUG_REPOS"; do
         [[ -d "$i" ]] || zf_mkdir -p "$i"
