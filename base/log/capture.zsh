@@ -1,3 +1,33 @@
+__zplug::log::capture::error_file()
+{
+    if [[ ! -s $1 ]]; then
+        return
+    fi
+
+    __zplug::log::capture::error < $1
+    zf_rm $1
+}
+
+__zplug::log::capture::debug_file()
+{
+    if [[ ! -s $1 ]]; then
+        return
+    fi
+
+    __zplug::log::capture::debug < $1
+    zf_rm $1
+}
+
+__zplug::log::capture::info_file()
+{
+    if [[ ! -s $1 ]]; then
+        return
+    fi
+
+    __zplug::log::capture::info < $1
+    zf_rm $1
+}
+
 __zplug::log::capture::error()
 {
     local message="$(<&0)"

@@ -100,8 +100,10 @@ __zplug::core::load::as_plugin()
         status_code=$status
     else
         msg="Load"
-        source "$load_path" 2> >(__zplug::log::capture::error)
+        local capture_error=$ZPLUG_HOME/log/capture_error.$$
+        source "$load_path" 2> $capture_error
         status_code=$status
+        __zplug::log::capture::error_file $capture_error
     fi
 
     if (( $_zplug_boolean_true[(I)$is_verbose] )); then
@@ -217,7 +219,12 @@ __zplug::core::load::skip_condition()
     fi
 
     if [[ -n $tags[if] ]]; then
-        if ! eval "$tags[if]" 2> >(__zplug::log::capture::error) >/dev/null; then
+        local capture_error=$ZPLUG_HOME/log/capture_error.$$
+        eval "$tags[if]" 2> $capture_error >/dev/null
+        local if_status=$status
+        __zplug::log::capture::error_file $capture_error
+
+        if (($if_status != 0)); then
             if (( $_zplug_boolean_true[(I)$is_verbose] )); then
                 __zplug::io::print::die "$tags[name]: (not loaded)\n"
             fi
