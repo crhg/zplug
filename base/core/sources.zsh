@@ -50,7 +50,7 @@ __zplug::core::sources::call()
             unfunction "$val.zsh"
         } \
             2> $capture_error >/dev/null
-        __zplug::log::capture::error_log $capture_error
+        __zplug::log::capture::error_file $capture_error
 
     fi
 }
