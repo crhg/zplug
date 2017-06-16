@@ -118,7 +118,7 @@ __zplug::core::cache::diff()
             <(__zplug::core::cache::expose) \
             <(__zplug::core::interface::expose)
         local diff_status=$status
-        __zplug::capture::error_file $capture_error
+        __zplug::log::capture::error_file $capture_error
 
         case $diff_status in
             0)
