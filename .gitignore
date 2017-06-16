@@ -13,6 +13,7 @@ zcompdump
 **/zcompdump
 zcompdump.zwc
 **/zcompdump.zwc
+*.zwc
 
 # a2x (man page)
 *.xml
