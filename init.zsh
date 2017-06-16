@@ -7,6 +7,9 @@ zplugs=()
 # A variable as a starting point of zplug
 typeset -gx ZPLUG_ROOT="${${(%):-%N}:A:h}"
 
+# load zsh/files module
+zmodload -m -F zsh/files b:zf_\*
+
 # Load basic functions such as an __zplug::base function
 source "$ZPLUG_ROOT/base/init.zsh"
 # Load autoloader

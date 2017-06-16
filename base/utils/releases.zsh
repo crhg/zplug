@@ -193,15 +193,15 @@ __zplug::utils::releases::index()
     case "$artifact" in
         *.zip)
                 unzip "$artifact"
-                rm -f "$artifact"
+                zf_rm -f "$artifact"
             ;;
         *.tar.bz2)
                 tar jxvf "$artifact"
-                rm -f "$artifact"
+                zf_rm -f "$artifact"
             ;;
         *.tar.gz|*.tgz)
                 tar xvf "$artifact"
-                rm -f "$artifact"
+                zf_rm -f "$artifact"
             ;;
         *.*)
             return 1
@@ -223,9 +223,9 @@ __zplug::utils::releases::index()
         return 1
     fi
 
-    mv -f "$binaries[1]" "$cmd"
+    zf_mv -f "$binaries[1]" "$cmd"
     chmod 755 "$cmd"
-    rm -rf *~"$cmd"(N)
+    zf_rm -rf *~"$cmd"(N)
 
     if [[ ! -x $cmd ]]; then
         __zplug::io::print::die \

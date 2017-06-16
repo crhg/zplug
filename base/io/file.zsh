@@ -45,9 +45,9 @@ __zplug::io::file::rm_touch()
 
     # For shorten the calculation time
     if [[ ! -d ${filepath:h} ]]; then
-        mkdir -p "${filepath:h}"
+        zf_mkdir -p "${filepath:h}"
     fi
 
-    rm -f "$filepath"
-    touch "$filepath"
+    zf_rm -f "$filepath"
+    : >> "$filepath"
 }

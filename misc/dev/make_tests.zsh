@@ -18,7 +18,7 @@ do
     fi
 
     # Update
-    rm -f "$test_file"
+    zf_rm -f "$test_file"
     cat "$fp" \
         | grep "^__zplug::$parent::$child" \
         | awk '
@@ -38,5 +38,5 @@ do
     local file="${fp:t}"
     local name="${file:gs:_:}"
 
-    touch "${arg:-$ZPLUG_ROOT}/test/$dir/$name.t"
+    : >> "${arg:-$ZPLUG_ROOT}/test/$dir/$name.t"
 done

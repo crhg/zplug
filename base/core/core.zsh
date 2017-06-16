@@ -144,12 +144,11 @@ __zplug::core::core::prepare()
     # Release zplug variables and export
     __zplug::core::core::variable || return 1
 
-    mkdir -p "$ZPLUG_HOME"/{,log}
-    mkdir -p "$ZPLUG_BIN"
-    mkdir -p "$ZPLUG_CACHE_DIR"
-    mkdir -p "$ZPLUG_REPOS"
+    for i in "$ZPLUG_HOME"/{,log} "$ZPLUG_BIN" "$ZPLUG_CACHE_DIR" "$ZPLUG_REPOS"; do
+        [[ -d "$i" ]] || zf_mkdir -p "$i"
+    done
 
-    touch "$_zplug_log[trace]"
+    : >> "$_zplug_log[trace]"
 
     # Run compinit if zplug comp file hasn't load
     if (( ! $+functions[_zplug] )); then
