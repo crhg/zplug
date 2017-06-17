@@ -153,9 +153,10 @@ __zplug::core::core::prepare()
     : >> "$_zplug_log[trace]"
 
     # Run compinit if zplug comp file hasn't load
-    if (( ! $+functions[_zplug] )); then
-        compinit -C -d "$ZPLUG_HOME/zcompdump"
-    fi
+    # loadするときにもcompinitしているので無駄っぽいからこちらは外して様子見
+    # if (( ! $+functions[_zplug] )); then
+    #      compinit -C -d "$ZPLUG_HOME/zcompdump"
+    # fi
 }
 
 __zplug::core::core::variable()
