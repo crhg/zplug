@@ -109,6 +109,12 @@ __zplug::core::core::prepare()
     "$fpath[@]"
     )
 
+    for i in "$ZPLUG_HOME"/{,log} "$ZPLUG_BIN" "$ZPLUG_CACHE_DIR" "$ZPLUG_REPOS"; do
+        [[ -d "$i" ]] || zf_mkdir -p "$i"
+    done
+
+    : >> "$_zplug_log[trace]"
+
     # Check whether you meet the requirements for using zplug
     # 1. zsh 4.3.9 or more
     # 2. git
@@ -145,12 +151,6 @@ __zplug::core::core::prepare()
 
         : >> $ZPLUG_CACHE_DIR/env_checked
     fi
-
-    for i in "$ZPLUG_HOME"/{,log} "$ZPLUG_BIN" "$ZPLUG_CACHE_DIR" "$ZPLUG_REPOS"; do
-        [[ -d "$i" ]] || zf_mkdir -p "$i"
-    done
-
-    : >> "$_zplug_log[trace]"
 
     # Run compinit if zplug comp file hasn't load
     # loadするときにもcompinitしているので無駄っぽいからこちらは外して様子見
