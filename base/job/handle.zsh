@@ -36,9 +36,11 @@ __zplug::job::handle::flock()
     fi
 
     local lock_fd
+    echo "try flock $file $contents" >> /tmp/zplug-flock.log
     until zsystem flock -t 3 -f lock_fd "$file"
     do
         cant_lock=$status
+        echo "cannot flock status=$cant_lock retry=$retry $file $contents" >> /tmp/zplug-flock.log
         if (( (++retry) > max )); then
             if (( cant_lock > 0 )); then
                 {
@@ -53,6 +55,7 @@ __zplug::job::handle::flock()
             return 1
         fi
     done
+    echo "get flock $file $contents" >> /tmp/zplug-flock.log
 
     # Save the status code with LTSV
     if $is_escape; then
