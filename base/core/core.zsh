@@ -88,6 +88,9 @@ __zplug::core::core::run_interfaces()
 
 __zplug::core::core::prepare()
 {
+    # Release zplug variables and export
+    __zplug::core::core::variable || return 1
+
     # Unique array
     typeset -gx -U path
     typeset -gx -U fpath
@@ -106,11 +109,17 @@ __zplug::core::core::prepare()
     "$fpath[@]"
     )
 
+    for i in "$ZPLUG_HOME"/{,log} "$ZPLUG_BIN" "$ZPLUG_CACHE_DIR" "$ZPLUG_REPOS"; do
+        [[ -d "$i" ]] || zf_mkdir -p "$i"
+    done
+
+    : >> "$_zplug_log[trace]"
+
     # Check whether you meet the requirements for using zplug
     # 1. zsh 4.3.9 or more
     # 2. git
     # 3. nawk or gawk
-    {
+    if [[ ! -f $ZPLUG_CACHE_DIR/env_checked ]]; then
         if ! __zplug::base::base::zsh_version 4.3.9; then
             __zplug::io::print::f \
                 --die \
@@ -139,21 +148,15 @@ __zplug::core::core::prepare()
                 'No available AWK variant in your $PATH\n'
             return 1
         fi
-    }
 
-    # Release zplug variables and export
-    __zplug::core::core::variable || return 1
-
-    for i in "$ZPLUG_HOME"/{,log} "$ZPLUG_BIN" "$ZPLUG_CACHE_DIR" "$ZPLUG_REPOS"; do
-        [[ -d "$i" ]] || zf_mkdir -p "$i"
-    done
-
-    : >> "$_zplug_log[trace]"
+        : >> $ZPLUG_CACHE_DIR/env_checked
+    fi
 
     # Run compinit if zplug comp file hasn't load
-    if (( ! $+functions[_zplug] )); then
-        compinit -C -d "$ZPLUG_HOME/zcompdump"
-    fi
+    # loadするときにもcompinitしているので無駄っぽいからこちらは外して様子見
+    # if (( ! $+functions[_zplug] )); then
+    #      compinit -C -d "$ZPLUG_HOME/zcompdump"
+    # fi
 }
 
 __zplug::core::core::variable()

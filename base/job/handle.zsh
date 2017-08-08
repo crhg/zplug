@@ -119,7 +119,7 @@ __zplug::job::handle::state()
             __zplug::job::message::red "$repo" "Repo not found"
             ;;
         $_zplug_status[unknown] | *)
-            __zplug::job::message::red "$repo" "Unknown error"
+            __zplug::job::message::red "$repo" "Unknown error(gawk?)"
             ;;
     esac
 }

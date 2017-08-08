@@ -1,6 +1,7 @@
 __zplug::log::capture::error_file()
 {
     if [[ ! -s $1 ]]; then
+        zf_rm $1
         return
     fi
 
@@ -11,6 +12,7 @@ __zplug::log::capture::error_file()
 __zplug::log::capture::debug_file()
 {
     if [[ ! -s $1 ]]; then
+        zf_rm $1
         return
     fi
 
@@ -21,6 +23,7 @@ __zplug::log::capture::debug_file()
 __zplug::log::capture::info_file()
 {
     if [[ ! -s $1 ]]; then
+        zf_rm $1
         return
     fi
 
